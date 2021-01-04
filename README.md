@@ -1,6 +1,3 @@
-# Use TypeScrip to Create CRUD API using NodeJS and MongoDB
-
-
 Installation steps
 
 npm init -y
