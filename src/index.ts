@@ -7,6 +7,7 @@ import { Recomendation } from './models/Recomendation';
 import { Disease } from './models/Disease';
 import { RecomendationController } from './controller/RecomendationController';
 import { DiseaseController } from './controller/DiseaseController';
+import { UserController } from './controller/UserController';
 
 dotenv.config();
 const app = express();
@@ -65,6 +66,7 @@ app.use((req, res, next) => {
 
 const recomendationController: RecomendationController = new RecomendationController();
 const diseaseController: DiseaseController = new DiseaseController();
+const userController: UserController = new UserController();
 
 authorisedRoute.get('/recomendations/:id', recomendationController.GetAll);
 authorisedRoute.post('/create_recomendation', recomendationController.InsertRecomendation);
@@ -75,3 +77,5 @@ authorisedRoute.get('/diseases', diseaseController.GetAll);
 authorisedRoute.post('/create_disease', diseaseController.InsertDisease);
 authorisedRoute.put('/update_disease', diseaseController.UpdateDisease);
 authorisedRoute.delete('/delete_disease/:id',diseaseController.DeleteDisease);
+
+authorisedRoute.get('/user/:user_id', userController.GetAll);

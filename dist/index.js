@@ -31,6 +31,7 @@ const Recomendation_1 = require("./models/Recomendation");
 const Disease_1 = require("./models/Disease");
 const RecomendationController_1 = require("./controller/RecomendationController");
 const DiseaseController_1 = require("./controller/DiseaseController");
+const UserController_1 = require("./controller/UserController");
 dotenv.config();
 const app = express_1.default();
 const authorisedRoute = express_1.default.Router();
@@ -73,6 +74,7 @@ app.use((req, res, next) => {
 });
 const recomendationController = new RecomendationController_1.RecomendationController();
 const diseaseController = new DiseaseController_1.DiseaseController();
+const userController = new UserController_1.UserController();
 authorisedRoute.get('/recomendations/:id', recomendationController.GetAll);
 authorisedRoute.post('/create_recomendation', recomendationController.InsertRecomendation);
 authorisedRoute.put('/update_recomendation', recomendationController.UpdateRecomendation);
@@ -81,4 +83,5 @@ authorisedRoute.get('/diseases', diseaseController.GetAll);
 authorisedRoute.post('/create_disease', diseaseController.InsertDisease);
 authorisedRoute.put('/update_disease', diseaseController.UpdateDisease);
 authorisedRoute.delete('/delete_disease/:id', diseaseController.DeleteDisease);
+authorisedRoute.get('/user/:user_id', userController.GetAll);
 //# sourceMappingURL=index.js.map

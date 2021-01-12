@@ -6,7 +6,7 @@ export class DiseaseController {
   GetAll(req: any, res: any) {
     const repository: DiseaseRepository = new DiseaseRepository()
     try {
-      repository.Find().then( diseases => { res.status(200).send(diseases) })
+      repository.Find().then( (diseases) => { res.status(200).send(diseases) })
     }
     catch (e) {
       res.status(404).send(e.message);
