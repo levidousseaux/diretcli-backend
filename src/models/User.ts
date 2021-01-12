@@ -12,10 +12,18 @@ export class User extends BaseEntity {
     @Column('datetime')
     birthday: Date
 
+    @Column('text')
+    email: string
+
+    @Column('text')
+    telefone: string
+
     UpdateUser(user: any) {
         this.id = user.id
         this.value = user.value
         this.user = user.user
         this.birthday = user.birthday
+        this.email = user.email
+        this.telefone = user.telefone
     }
 }
