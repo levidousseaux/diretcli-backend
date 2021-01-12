@@ -1,12 +1,30 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
-class User {
-    constructor(name, password, id) {
-        this.id = id;
-        this.name = name;
-        this.password = password;
+/*import {Entity, Column, PrimaryGeneratedColumn, BaseEntity} from "typeorm";
+
+@Entity()
+export class User extends BaseEntity {
+
+    @PrimaryGeneratedColumn()
+    id: number
+
+    @Column('text')
+    user: string
+
+    @Column('datetime')
+    birthday: Date
+
+    @Column('text')
+    email: string
+
+    @Column('text')
+    telefone: string
+
+    UpdateUser(user: any) {
+        this.id = user.id
+        this.user = user.user
+        this.birthday = user.birthday
+        this.email = user.email
+        this.telefone = user.telefone
     }
 }
-exports.User = User;
+*/
 //# sourceMappingURL=User.js.map

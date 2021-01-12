@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn, BaseEntity} from "typeorm";
+/*import {Entity, Column, PrimaryGeneratedColumn, BaseEntity} from "typeorm";
 
 @Entity()
 export class User extends BaseEntity {
@@ -20,10 +20,10 @@ export class User extends BaseEntity {
 
     UpdateUser(user: any) {
         this.id = user.id
-        this.value = user.value
         this.user = user.user
         this.birthday = user.birthday
         this.email = user.email
         this.telefone = user.telefone
     }
 }
+*/

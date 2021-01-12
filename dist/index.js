@@ -31,7 +31,10 @@ const Recomendation_1 = require("./models/Recomendation");
 const Disease_1 = require("./models/Disease");
 const RecomendationController_1 = require("./controller/RecomendationController");
 const DiseaseController_1 = require("./controller/DiseaseController");
-const UserController_1 = require("./controller/UserController");
+/*
+import { User } from './models/User';
+import { UserController } from './controller/UserController';
+*/
 dotenv.config();
 const app = express_1.default();
 const authorisedRoute = express_1.default.Router();
@@ -49,14 +52,14 @@ app.listen(PORT, () => {
 typeorm_1.createConnection({
     name: "default",
     type: "mysql",
-    host: "us-cdbr-east-02.cleardb.com",
+    host: "localhost",
     port: 3306,
-    username: "be827aa0f28bbd",
-    password: "5b34a369",
-    database: "heroku_4674a33dd5ab37b",
+    username: "root",
+    password: "levi1234",
+    database: "diretcli",
     entities: [
         Recomendation_1.Recomendation,
-        Disease_1.Disease
+        Disease_1.Disease,
     ],
     synchronize: true,
     logging: false
@@ -74,7 +77,10 @@ app.use((req, res, next) => {
 });
 const recomendationController = new RecomendationController_1.RecomendationController();
 const diseaseController = new DiseaseController_1.DiseaseController();
-const userController = new UserController_1.UserController();
+//const userController: UserController = new UserController();
+/*authorisedRoute.get('/user', userController.GetAll);
+authorisedRoute.post('/create_user', userController.InsertUser);
+authorisedRoute.delete('/delete_disease/:id', userController.DeleteUser);*/
 authorisedRoute.get('/recomendations/:id', recomendationController.GetAll);
 authorisedRoute.post('/create_recomendation', recomendationController.InsertRecomendation);
 authorisedRoute.put('/update_recomendation', recomendationController.UpdateRecomendation);
@@ -83,5 +89,4 @@ authorisedRoute.get('/diseases', diseaseController.GetAll);
 authorisedRoute.post('/create_disease', diseaseController.InsertDisease);
 authorisedRoute.put('/update_disease', diseaseController.UpdateDisease);
 authorisedRoute.delete('/delete_disease/:id', diseaseController.DeleteDisease);
-authorisedRoute.get('/user/:user_id', userController.GetAll);
 //# sourceMappingURL=index.js.map

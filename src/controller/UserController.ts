@@ -1,4 +1,4 @@
-import { User } from '../models/User';
+/*import { User } from '../models/User';
 import { UserRepository } from '../repository/UserRepository';
 
 export class UserController {
@@ -41,3 +41,4 @@ export class UserController {
   }
 
 }
+*/
