@@ -1,4 +1,4 @@
-/*import {Entity, Column, PrimaryGeneratedColumn, BaseEntity} from "typeorm";
+import {Entity, Column, PrimaryGeneratedColumn, BaseEntity} from "typeorm";
 
 @Entity()
 export class User extends BaseEntity {
@@ -7,7 +7,7 @@ export class User extends BaseEntity {
     id: number
 
     @Column('text')
-    user: string
+    name: string
 
     @Column('datetime')
     birthday: Date
@@ -16,14 +16,14 @@ export class User extends BaseEntity {
     email: string
 
     @Column('text')
-    telefone: string
-
-    UpdateUser(user: any) {
-        this.id = user.id
-        this.user = user.user
-        this.birthday = user.birthday
-        this.email = user.email
-        this.telefone = user.telefone
+    cellphone: string
+    
+    constructor (id: number, name: string, birthday: Date, email: string, cellphone: string) {
+        super()
+        this.id = id
+        this.name = name
+        this.birthday = birthday
+        this.email = email
+        this.cellphone = cellphone
     }
 }
-*/

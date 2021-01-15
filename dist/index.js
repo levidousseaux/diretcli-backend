@@ -31,6 +31,8 @@ const Recomendation_1 = require("./models/Recomendation");
 const Disease_1 = require("./models/Disease");
 const RecomendationController_1 = require("./controller/RecomendationController");
 const DiseaseController_1 = require("./controller/DiseaseController");
+const UserController_1 = require("./controller/UserController");
+const User_1 = require("./models/User");
 /*
 import { User } from './models/User';
 import { UserController } from './controller/UserController';
@@ -60,12 +62,11 @@ typeorm_1.createConnection({
     entities: [
         Recomendation_1.Recomendation,
         Disease_1.Disease,
+        User_1.User
     ],
     synchronize: true,
     logging: false
-}).then(connection => {
-    // here you can start to work with your entities
-}).catch(error => console.log(error));
+}).then(connection => { }).catch(error => console.log(error));
 app.use("/", authorisedRoute);
 app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
@@ -77,10 +78,8 @@ app.use((req, res, next) => {
 });
 const recomendationController = new RecomendationController_1.RecomendationController();
 const diseaseController = new DiseaseController_1.DiseaseController();
-//const userController: UserController = new UserController();
-/*authorisedRoute.get('/user', userController.GetAll);
-authorisedRoute.post('/create_user', userController.InsertUser);
-authorisedRoute.delete('/delete_disease/:id', userController.DeleteUser);*/
+const userController = new UserController_1.UserController();
+authorisedRoute.post('/create_user', userController.CreateUser);
 authorisedRoute.get('/recomendations/:id', recomendationController.GetAll);
 authorisedRoute.post('/create_recomendation', recomendationController.InsertRecomendation);
 authorisedRoute.put('/update_recomendation', recomendationController.UpdateRecomendation);

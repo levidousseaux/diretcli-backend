@@ -1,36 +1,26 @@
-/*import { getConnection, EntityManager } from "typeorm";
-import { User } from '../models/User';
-
-export class UserRepository {
-
-    private manager: EntityManager
-
+"use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserRepository = void 0;
+const typeorm_1 = require("typeorm");
+const User_1 = require("../models/User");
+class UserRepository {
     constructor() {
-        this.manager = getConnection().manager
+        this.manager = typeorm_1.getConnection().manager;
     }
-
-    async Find(): Promise<User[]> {
-        const user: User[] = [];
-        await this.manager.findOne(User).then( result => {
-            result.forEach((value) => {
-                user.push(value)
-            })
-        })
-        return user
+    CreateUser(user) {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield this.manager.insert(User_1.User, user);
+        });
     }
-
-    async DeleteById(id: any): Promise<number> {
-        let rows = 0
-        await this.manager.delete(User, id).then( result => { rows = result.raw })
-        return rows
-    }
-
-    async InsertUser(user: User): Promise<any> {
-        let return_value;
-        await this.manager.insert(User, user).then( result => { return_value = result.raw })
-        return return_value
-    }
-
 }
-*/
+exports.UserRepository = UserRepository;
 //# sourceMappingURL=UserRepository.js.map
