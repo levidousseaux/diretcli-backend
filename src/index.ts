@@ -34,11 +34,11 @@ app.listen(PORT, () => {
 createConnection({
     name: "default",
     type: "mysql",
-    host: "localhost",
+    host: "us-cdbr-east-02.cleardb.com",
     port: 3306,
-    username: "root",
-    password: "levi1234",
-    database: "diretcli",
+    username: "be827aa0f28bbd",
+    password: "5b34a369",
+    database: "heroku_4674a33dd5ab37b",
     entities: [
         Recomendation,
         Disease,
@@ -74,6 +74,7 @@ const userController: UserController = new UserController();
 
 
 authorisedRoute.post('/create_user', userController.CreateUser);
+authorisedRoute.get('/users', userController.GetUsers);
 
 authorisedRoute.get('/recomendations/:id', recomendationController.GetAll);
 authorisedRoute.post('/create_recomendation', recomendationController.InsertRecomendation);
