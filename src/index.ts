@@ -7,6 +7,8 @@ import { Recomendation } from './models/Recomendation';
 import { Disease } from './models/Disease';
 import { RecomendationController } from './controller/RecomendationController';
 import { DiseaseController } from './controller/DiseaseController';
+import { UserController } from './controller/UserController';
+import { User } from './models/User';
 /*
 import { User } from './models/User';
 import { UserController } from './controller/UserController';
@@ -40,15 +42,12 @@ createConnection({
     entities: [
         Recomendation,
         Disease,
-        //
-      //  User
+        User
     ],
     synchronize: true,
     logging: false
   }
-).then(connection => {
-  // here you can start to work with your entities
-}).catch(error => console.log(error));
+).then(connection => {  }).catch(error => console.log(error));
 
 
 app.use("/", authorisedRoute);
@@ -71,11 +70,10 @@ app.use((req, res, next) => {
 
 const recomendationController: RecomendationController = new RecomendationController();
 const diseaseController: DiseaseController = new DiseaseController();
-//const userController: UserController = new UserController();
+const userController: UserController = new UserController();
 
-/*authorisedRoute.get('/user', userController.GetAll);
-authorisedRoute.post('/create_user', userController.InsertUser);
-authorisedRoute.delete('/delete_disease/:id', userController.DeleteUser);*/
+
+authorisedRoute.post('/create_user', userController.CreateUser);
 
 authorisedRoute.get('/recomendations/:id', recomendationController.GetAll);
 authorisedRoute.post('/create_recomendation', recomendationController.InsertRecomendation);
