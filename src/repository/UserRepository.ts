@@ -13,4 +13,8 @@ export class UserRepository {
         await this.manager.insert(User, user)
     }
 
+    async GetUser(): Promise<User[]> {
+        return await this.manager.find(User)
+    }
+
 }

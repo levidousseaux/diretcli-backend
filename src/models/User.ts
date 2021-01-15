@@ -18,9 +18,8 @@ export class User extends BaseEntity {
     @Column('text')
     cellphone: string
     
-    constructor (id: number, name: string, birthday: Date, email: string, cellphone: string) {
+    constructor (name: string, birthday: Date, email: string, cellphone: string) {
         super()
-        this.id = id
         this.name = name
         this.birthday = birthday
         this.email = email
