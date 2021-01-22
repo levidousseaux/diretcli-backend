@@ -17,8 +17,7 @@ export class RecomendationController {
 
   InsertRecomendation(req: any, res: any) {
     const repository: RecomendationRepository = new RecomendationRepository()
-    const recomendation: Recomendation = new Recomendation()
-    recomendation.UpdateRecomendation(req.body)
+    const recomendation: Recomendation =  new Recomendation(req.body.id_disease, req.body.category, req.body.subcategory, req.body.sequence, req.body.title, req.body.value, req.body.user)
 
     try {
       repository.InsertRecomendation(recomendation).then((recomendations) => {
@@ -32,8 +31,7 @@ export class RecomendationController {
 
   UpdateRecomendation(req: any, res: any) {
     const repository: RecomendationRepository = new RecomendationRepository()
-    const recomendation: Recomendation = new Recomendation()
-    recomendation.UpdateRecomendation(req.body)
+    const recomendation: Recomendation =  new Recomendation(req.body.id_disease, req.body.category, req.body.subcategory, req.body.sequence, req.body.title, req.body.value, req.body.user)
 
     try {
       repository.UpdateRecomendation(recomendation.id, recomendation).then((recomendations) => {
@@ -55,6 +53,6 @@ export class RecomendationController {
     catch (e) {
       res.status(404).send(e.message);
     }
-  }
+  }  
 
 }
