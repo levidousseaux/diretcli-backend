@@ -10,10 +10,16 @@ export class Recomendation extends BaseEntity {
     id_disease: number
 
     @Column('tinytext')
-    type: string
+    category: string
+
+    @Column('tinytext')
+    subcategory: string
 
     @Column('int')
     sequence: number
+
+    @Column('text')
+    title: string
 
     @Column('text')
     value: string
@@ -24,13 +30,15 @@ export class Recomendation extends BaseEntity {
     @Column('datetime')
     last_updated: Date
 
-    UpdateRecomendation(recomendation: any) {
-        this.id = recomendation.id
-        this.id_disease = recomendation.id_disease
-        this.type = recomendation.type
-        this.sequence = recomendation.sequence
-        this.value = recomendation.value
-        this.user = 'levi'
+    constructor (id_disease: number, category: string, subcategory: string, sequence: number, title: string, value: string, user: string) {
+        super();
+        this.id_disease = id_disease        
+        this.category = category
+        this.subcategory = subcategory
+        this.sequence = sequence
+        this.title = title
+        this.value = value
+        this.user = user
         this.last_updated = new Date(Date.now())
     }
 }
