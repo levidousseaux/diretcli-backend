@@ -1,19 +1,15 @@
 import "reflect-metadata";
-import cors from 'cors';
 import express from 'express';
 import * as dotenv from 'dotenv';
 import helmet from "helmet";
-import { createConnection } from "typeorm";
-
 import { Recomendation } from './models/Recomendation';
 import { Disease } from './models/Disease';
-import { User } from './models/User';
 
-import routes from './routes';
+import routes from './routes/routes';
+import { createConnection } from "typeorm";
+import cors from "cors";
 
-// Create a new express application instance
 const app = express();
-//const authorisedRoute = express.Router();
 dotenv.config();
 
 if (!process.env.PORT) {
@@ -55,15 +51,14 @@ createConnection({
 //   ],
 //   synchronize: true,
 //   logging: false
-// }
-).then(connection => {  }).catch(error => console.log(error));
+// 
+//}
+).then(() => {  }).catch((error: any) => console.log(error));
 
 // Call middlewares
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
-app.use("/", routes);
-
 app.use((req, res, next) => {
   res.setHeader(
     'Access-Control-Allow-Methods',
@@ -79,3 +74,4 @@ app.use((req, res, next) => {
 
   next();
 });
+app.use("/", routes);

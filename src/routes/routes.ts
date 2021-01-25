@@ -10,6 +10,6 @@ const routes = Router();
 routes.use("/auth", auth);
 routes.use("/user", user);
 routes.use("/diseases", diseases);
-routes.use("/recomedantions", recomendations);
+routes.use("/recomendations", recomendations);
 
 export default routes;
