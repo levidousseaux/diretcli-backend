@@ -34,15 +34,14 @@ app.listen(PORT, () => {
 createConnection({
     name: "default",
     type: "mysql",
-    host: "us-cdbr-east-02.cleardb.com",
+    host: "localhost",
     port: 3306,
-    username: "be827aa0f28bbd",
-    password: "5b34a369",
-    database: "heroku_4674a33dd5ab37b",
+    username: "root",
+    password: "levi1234",
+    database: "diretcli",
     entities: [
         Recomendation,
-        Disease,
-        User
+        Disease
     ],
     synchronize: true,
     logging: false
