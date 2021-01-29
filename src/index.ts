@@ -5,9 +5,10 @@ import helmet from "helmet";
 import { Recomendation } from './models/Recomendation';
 import { Disease } from './models/Disease';
 
-import routes from './routes/routes';
+import routes from './routes';
 import { createConnection } from "typeorm";
 import cors from "cors";
+import { User } from "./models/User";
 
 const app = express();
 dotenv.config();
@@ -32,7 +33,8 @@ createConnection({
     database: "diretcli",
     entities: [
         Recomendation,
-        Disease
+        Disease,
+        User
     ],
     synchronize: true,
     logging: false
@@ -51,14 +53,14 @@ createConnection({
 //   ],
 //   synchronize: true,
 //   logging: false
-// 
-//}
+// }
 ).then(() => {  }).catch((error: any) => console.log(error));
 
-// Call middlewares
+
 app.use(helmet());
 app.use(cors());
 app.use(express.json());
+app.use("/", routes);
 app.use((req, res, next) => {
   res.setHeader(
     'Access-Control-Allow-Methods',
@@ -74,4 +76,3 @@ app.use((req, res, next) => {
 
   next();
 });
-app.use("/", routes);

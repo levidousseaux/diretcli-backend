@@ -1,21 +1,20 @@
-import {Entity, PrimaryGeneratedColumn, Column, Unique, CreateDateColumn, UpdateDateColumn} from "typeorm";
-import { IsNotEmpty } from "class-validator";
 import * as bcrypt from "bcryptjs";
+import { Column, Entity, PrimaryColumn } from "typeorm";
 
     
 @Entity()
 export class User {
-    @PrimaryGeneratedColumn()
-    id: number;
 
+    @PrimaryColumn()
+    email: string;
+    
     @Column('text')
-    username: string;
+    name: string;    
 
     @Column('text')
     password: string;
 
     @Column('text')
-    @IsNotEmpty()
     role: string;
 
     @Column('datetime')
@@ -23,6 +22,15 @@ export class User {
 
     @Column('datetime')
     updatedAt: Date;
+
+    constructor(email: string, name: string, password: string, role: string) {
+        this.email = email
+        this.name = name
+        this.password = password
+        this.role = role
+        this.createdAt = new Date(Date.now())
+        this.updatedAt = new Date(Date.now())
+    }
 
     hashPassword() {
     this.password = bcrypt.hashSync(this.password, 8);

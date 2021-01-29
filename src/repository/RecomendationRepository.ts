@@ -31,6 +31,12 @@ export class RecomendationRepository {
         return return_value
     }
 
+    async InsertRecomendations(recomendation: Recomendation[]): Promise<any> {
+        let return_value;
+        await this.manager.insert(Recomendation, recomendation).then( result => { return_value = result.raw })
+        return return_value
+    }
+
     async UpdateRecomendation(id: number, recomendation: Recomendation): Promise<number> {
         let rows = 0
         await this.manager.update(Recomendation, id, recomendation).then( result => { rows = result.raw })

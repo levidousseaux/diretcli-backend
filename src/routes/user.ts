@@ -1,21 +1,12 @@
 import { Router } from "express";
-  import UserController  from "../controller/UserController";
+import { UserController } from "../controller/UserController";
 
-  const router = Router();
+const router = Router();
+const userController: UserController = new UserController()
 
-  //Get all users
-  router.get("/", UserController.listAll);
-
-  // Get one user
-  router.get("/:id([0-9]+)", UserController.getOneById);
-
-  //Create a new user
-  router.post("/", UserController.newUser);
-
-  //Edit one user
-  router.patch("/:id([0-9]+)", UserController.editUser );
-
-  //Delete one user
-  router.delete( "/:id([0-9]+)", UserController.deleteUser );
+router.get("/", userController.ListAll);
+router.post("/", userController.CreateUser);
+router.patch("/:email", userController.EditUser );
+router.delete( "/:email", userController.DeleteUser );
 
 export default router;

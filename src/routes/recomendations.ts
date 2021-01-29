@@ -7,6 +7,7 @@ const recomendationController: RecomendationController = new RecomendationContro
 
 router.get('/:id', recomendationController.GetAll);
 router.post('/create', recomendationController.InsertRecomendation);
+router.post('/import', recomendationController.ImportRecomendations);
 router.put('/update', recomendationController.UpdateRecomendation);
 router.delete('/delete/:id', recomendationController.DeleteRecomendation);
 
