@@ -37,6 +37,6 @@ export class User {
     }
 
     checkIfUnencryptedPasswordIsValid(unencryptedPassword: string) {
-    return bcrypt.compareSync(unencryptedPassword, this.password);
+        return bcrypt.compareSync(unencryptedPassword, this.password);
     }
 }

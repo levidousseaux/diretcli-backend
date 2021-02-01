@@ -13,27 +13,6 @@ export class UserController{
     res.status(200).send(users);
   };
 
-  async CreateUser(req: Request, res: Response) {
-    const user = new User(req.body.email, req.body.name, req.body.password, req.body.role);
-    const errors = await validate(user);
-
-    if (errors.length > 0) {
-      res.status(400).send(errors);
-      return;
-    }
-
-    user.hashPassword();
-    
-    const userRepository = getRepository(User);
-    try {
-      await userRepository.save(user);
-    } catch (e) {
-      res.status(409).send();
-      return;
-    }
-    res.status(201).send();
-  };
-
   async EditUser(req: Request, res: Response) {
     const id = req.params.email;
     const { email, name, role } = req.body;

@@ -7,7 +7,10 @@ import config from "../config/config";
 import { validate } from "class-validator";
 
 export class AuthController {
-  static login = async (req: Request, res: Response) => {
+  async Logout (req: Request, res: Response) {
+    res.status(204).json({})
+  } 
+  async Login (req: Request, res: Response) {
     let { email, password } = req.body;
     let user: User;
     const userRepository = getRepository(User);
@@ -35,45 +38,49 @@ export class AuthController {
     );
 
     //Send the jwt in the response
-    res.send(user);
-  };
+    res.status(200).send({ token: token });
+  }
 
-  static changePassword = async (req: Request, res: Response) => {
-    //Get ID from JWT
-    const id = res.locals.jwtPayload.userId;
+  async CreateUser(req: Request, res: Response) {
+    const user = new User(req.body.email, req.body.fullName, req.body.password, 'admin');
+    const errors = await validate(user);
 
-    //Get parameters from the body
-    const { oldPassword, newPassword } = req.body;
-    if (!(oldPassword && newPassword)) {
-      res.status(400).send();
-    }
-
-    //Get user from the database
-    const userRepository = getRepository(User);
-    let user: User;
-    try {
-      user = await userRepository.findOneOrFail(id);
-    } catch (id) {
-      res.status(401).send();
-    }
-
-    //Check if old password matchs
-    if (!user.checkIfUnencryptedPasswordIsValid(oldPassword)) {
-      res.status(401).send();
+    if (req.body.confirmPassword != req.body.password) {
+      res.status(400).send(errors);
       return;
     }
 
-    //Validate de model (password lenght)
-    user.password = newPassword;
-    const errors = await validate(user);
     if (errors.length > 0) {
       res.status(400).send(errors);
       return;
     }
-    //Hash the new password and save
-    user.hashPassword();
-    userRepository.save(user);
 
-    res.status(204).send();
-  };
+    user.hashPassword();
+    
+    const userRepository = getRepository(User);
+    try {
+      await userRepository.save(user);
+    } catch (e) {
+      res.status(409).send();
+      return;
+    }
+
+    const token = jwt.sign(
+      { userId: user.email, username: user.name },
+      config.jwtSecret,
+      { expiresIn: "1h" }
+    );
+
+    res.status(201).send({ token: token });
+  }
+
+  async ResetPass(req: Request, res: Response) {
+    const userRepository = getRepository(User);
+    try {
+      const user: User = await userRepository.findOneOrFail({ where: { email: req.body.email } });
+      return res.status(200).send();
+    } catch(error) {
+      return res.status(400).send( { error: error })
+    }
+  }
 }

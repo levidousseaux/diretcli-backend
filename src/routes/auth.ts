@@ -1,9 +1,12 @@
 import { Router } from "express";
 import { AuthController } from '../controller/AuthController';
-import { checkJwt } from '../middlewares/checkJwt';
 
 const router = Router();
-router.post("/login", AuthController.login);
-router.post("/change-password", [checkJwt], AuthController.changePassword);
+const authController = new AuthController()
+router.post("/sign-in", authController.Login);
+router.post("/sign-up", authController.CreateUser);
+router.delete("/sign-out", authController.Logout);
+router.post("/request-pass", authController.ResetPass);
+router.post("/reset-pass", authController.ResetPass);
 
 export default router;
