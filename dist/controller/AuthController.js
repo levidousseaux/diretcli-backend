@@ -69,7 +69,7 @@ class AuthController {
     }
     CreateUser(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
-            const user = new User_1.User(req.body.email, req.body.fullName, req.body.password, req.body.confirmPassword);
+            const user = new User_1.User(req.body.email, req.body.fullName, req.body.password, 'admin');
             const errors = yield class_validator_1.validate(user);
             if (req.body.confirmPassword != req.body.password) {
                 res.status(400).send(errors);
@@ -88,9 +88,7 @@ class AuthController {
                 res.status(409).send();
                 return;
             }
-            console.log(user);
             const token = jwt.sign({ userId: user.email, username: user.name }, config_1.default.jwtSecret, { expiresIn: "1h" });
-            //Send the jwt in the response
             res.status(201).send({ token: token });
         });
     }
@@ -108,38 +106,4 @@ class AuthController {
     }
 }
 exports.AuthController = AuthController;
-AuthController.changePassword = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    //Get ID from JWT
-    const id = res.locals.jwtPayload.userId;
-    //Get parameters from the body
-    const { oldPassword, newPassword } = req.body;
-    if (!(oldPassword && newPassword)) {
-        res.status(400).send();
-    }
-    //Get user from the database
-    const userRepository = typeorm_1.getRepository(User_1.User);
-    let user;
-    try {
-        user = yield userRepository.findOneOrFail(id);
-    }
-    catch (id) {
-        res.status(401).send();
-    }
-    //Check if old password matchs
-    if (!user.checkIfUnencryptedPasswordIsValid(oldPassword)) {
-        res.status(401).send();
-        return;
-    }
-    //Validate de model (password lenght)
-    user.password = newPassword;
-    const errors = yield class_validator_1.validate(user);
-    if (errors.length > 0) {
-        res.status(400).send(errors);
-        return;
-    }
-    //Hash the new password and save
-    user.hashPassword();
-    userRepository.save(user);
-    res.status(204).send();
-});
 //# sourceMappingURL=AuthController.js.map

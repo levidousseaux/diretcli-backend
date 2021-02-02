@@ -4,7 +4,6 @@ import user from "./routes/user";
 import diseases from "./routes/diseases";
 import recomendations from "./routes/recomendations";
 
-
 const routes = Router();
 
 routes.use("/auth", auth);

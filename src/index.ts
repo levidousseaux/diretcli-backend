@@ -4,7 +4,6 @@ import * as dotenv from 'dotenv';
 import helmet from "helmet";
 import { Recomendation } from './models/Recomendation';
 import { Disease } from './models/Disease';
-
 import routes from './routes';
 import { createConnection } from "typeorm";
 import cors from "cors";
@@ -76,3 +75,5 @@ app.use((req, res, next) => {
 
   next();
 });
+
+

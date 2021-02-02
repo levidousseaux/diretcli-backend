@@ -18,7 +18,7 @@ export class RecomendationController {
   InsertRecomendation(req: any, res: any) {
     const repository: RecomendationRepository = new RecomendationRepository()
     const recomendation: Recomendation =  new Recomendation(req.body.id_disease, req.body.category, req.body.subcategory, req.body.sequence, req.body.title, req.body.value)
-
+    
     try {
       repository.InsertRecomendation(recomendation).then((recomendations) => {
         res.status(200).send(recomendations)

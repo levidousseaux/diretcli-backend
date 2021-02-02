@@ -24,6 +24,11 @@ export class Recomendation extends BaseEntity {
     @Column('text')
     value: string
 
+    @Column({
+        type: "longblob"
+    })
+    image: Buffer
+
     @Column('text')
     user: string
 
