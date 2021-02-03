@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.RecomendationController = void 0;
+const typeorm_1 = require("typeorm");
 const Recomendation_1 = require("../models/Recomendation");
 const RecomendationRepository_1 = require("../repository/RecomendationRepository");
 class RecomendationController {
@@ -75,6 +76,52 @@ class RecomendationController {
         catch (e) {
             res.status(404).send(e.message);
         }
+    }
+    UploadImage(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                if (!req.file.originalname.toLocaleLowerCase().match(/\.(png|jpg|jpeg)$/)) {
+                    return res.status(400).send({ error: "Formato invalido" });
+                }
+                const repository = typeorm_1.getRepository(Recomendation_1.Recomendation);
+                const recomendation = yield repository.findOneOrFail(req.body.id);
+                recomendation.image = req.file.buffer;
+                recomendation.save();
+                res.send();
+            }
+            catch (e) {
+            }
+        });
+    }
+    DeleteImage(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const repository = typeorm_1.getRepository(Recomendation_1.Recomendation);
+                const recomendation = yield repository.findOneOrFail(req.params.id);
+                recomendation.image = null;
+                repository.save(recomendation);
+                res.status(200).send();
+            }
+            catch (e) {
+                res.status(400).send(e);
+            }
+        });
+    }
+    GetImage(req, res) {
+        return __awaiter(this, void 0, void 0, function* () {
+            try {
+                const repository = typeorm_1.getRepository(Recomendation_1.Recomendation);
+                const recomendation = yield repository.findOneOrFail(req.params.id);
+                if (!recomendation || !recomendation.image) {
+                    throw new Error();
+                }
+                res.set('Content-Type', 'image/png');
+                res.send(recomendation.image);
+            }
+            catch (e) {
+                res.status(404).send();
+            }
+        });
     }
 }
 exports.RecomendationController = RecomendationController;

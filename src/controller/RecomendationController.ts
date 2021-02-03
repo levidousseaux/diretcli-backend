@@ -1,8 +1,9 @@
+import { getRepository } from 'typeorm';
 import { Recomendation } from '../models/Recomendation';
 import { RecomendationRepository } from '../repository/RecomendationRepository';
 
 export class RecomendationController {
-
+  
   GetAll(req: any, res: any) {
     const repository: RecomendationRepository = new RecomendationRepository()
     try {
@@ -69,6 +70,45 @@ export class RecomendationController {
     catch (e) {
       res.status(404).send(e.message);
     }
-  }  
+  }
 
+  async UploadImage(req: any, res: any) {
+    try {
+      if (!req.file.originalname.toLocaleLowerCase().match(/\.(png|jpg|jpeg)$/)){
+        return res.status(400).send({ error: "Formato invalido" })
+      }
+      const repository = getRepository(Recomendation)
+      const recomendation: Recomendation = await repository.findOneOrFail(req.body.id)        
+      recomendation.image = req.file.buffer
+      recomendation.save()
+      res.send()
+    } catch (e){
+    }
+  }
+
+  async DeleteImage(req: any, res: any) {
+    try {
+      const repository = getRepository(Recomendation)
+      const recomendation: Recomendation = await repository.findOneOrFail(req.params.id)
+      recomendation.image = null
+      repository.save(recomendation)
+      res.status(200).send()
+    } catch (e) {
+        res.status(400).send(e)
+    }
+  }
+
+  async GetImage(req: any, res: any) {
+    try{
+      const repository = getRepository(Recomendation)
+      const recomendation: Recomendation = await repository.findOneOrFail(req.params.id)
+      if (!recomendation || !recomendation.image) {
+          throw new Error()
+      }
+      res.set('Content-Type', 'image/png')
+      res.send(recomendation.image)
+    } catch(e) {
+      res.status(404).send()
+    }
+  }
 }
