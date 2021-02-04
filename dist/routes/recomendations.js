@@ -8,7 +8,6 @@ const RecomendationController_1 = require("../controller/RecomendationController
 const multer_1 = __importDefault(require("multer"));
 const router = express_1.Router();
 const upload = multer_1.default({
-    dest: 'images',
     storage: multer_1.default.memoryStorage()
 });
 const recomendationController = new RecomendationController_1.RecomendationController();

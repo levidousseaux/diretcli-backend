@@ -4,7 +4,6 @@ import multer from "multer";
 
 const router = Router();
 const upload = multer({
-    dest: 'images',
     storage: multer.memoryStorage()
 })
 const recomendationController: RecomendationController = new RecomendationController();
