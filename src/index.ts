@@ -8,6 +8,8 @@ import routes from './routes';
 import { createConnection } from "typeorm";
 import cors from "cors";
 import { User } from "./models/User";
+import { Comment } from "./models/Comment";
+import { Source } from "./models/Source";
 
 const app = express();
 dotenv.config();
@@ -48,7 +50,9 @@ createConnection({
    entities: [
        Recomendation,
        Disease,
-       User
+       User,
+       Comment,
+       Source
    ],
    synchronize: true,
    logging: false

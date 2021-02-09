@@ -32,6 +32,8 @@ const routes_1 = __importDefault(require("./routes"));
 const typeorm_1 = require("typeorm");
 const cors_1 = __importDefault(require("cors"));
 const User_1 = require("./models/User");
+const Comment_1 = require("./models/Comment");
+const Source_1 = require("./models/Source");
 const app = express_1.default();
 dotenv.config();
 if (!process.env.PORT) {
@@ -68,7 +70,9 @@ typeorm_1.createConnection({
     entities: [
         Recomendation_1.Recomendation,
         Disease_1.Disease,
-        User_1.User
+        User_1.User,
+        Comment_1.Comment,
+        Source_1.Source
     ],
     synchronize: true,
     logging: false
