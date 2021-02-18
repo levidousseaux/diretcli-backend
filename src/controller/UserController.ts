@@ -5,9 +5,10 @@ import { User } from "../models/User";
 
 export class UserController{
 
-  async ListAll(req: Request, res: Response) {
+  async GetById(req: Request, res: Response) {
     const userRepository = getRepository(User);
-    const users = await userRepository.find({
+    const users = await userRepository.findOne({
+      where: { email: req.params.email },
       select: ["email", "name", "role"]
     });
     res.status(200).send(users);

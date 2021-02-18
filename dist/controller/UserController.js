@@ -14,10 +14,11 @@ const class_validator_1 = require("class-validator");
 const typeorm_1 = require("typeorm");
 const User_1 = require("../models/User");
 class UserController {
-    ListAll(req, res) {
+    GetById(req, res) {
         return __awaiter(this, void 0, void 0, function* () {
             const userRepository = typeorm_1.getRepository(User_1.User);
-            const users = yield userRepository.find({
+            const users = yield userRepository.findOne({
+                where: { email: req.params.email },
                 select: ["email", "name", "role"]
             });
             res.status(200).send(users);
