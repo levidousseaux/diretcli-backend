@@ -34,18 +34,16 @@ class DiseaseRepository {
             return rows;
         });
     }
-    InsertDisease(disease) {
+    Insert(disease) {
         return __awaiter(this, void 0, void 0, function* () {
             let return_value;
             yield this.manager.insert(Disease_1.Disease, disease).then(result => { return_value = result.raw; });
             return return_value;
         });
     }
-    UpdateDisease(id, disease) {
+    Update(disease) {
         return __awaiter(this, void 0, void 0, function* () {
-            let rows = 0;
-            yield this.manager.update(Disease_1.Disease, id, disease).then(result => { rows = result.raw; });
-            return rows;
+            yield disease.save();
         });
     }
 }

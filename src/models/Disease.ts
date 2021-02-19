@@ -10,15 +10,11 @@ export class Disease extends BaseEntity {
     name: string
 
     @Column('text')
-    user: string
+    resume: string
 
-    @Column('datetime')
-    last_updated: Date
-
-    UpdateDisease(disease: any) {
-        this.id = disease.id
-        this.name = disease.name
-        this.user = 'levi'
-        this.last_updated = new Date(Date.now())
+    constructor(name: string, resume: string) {
+        super()
+        this.name = name
+        this.resume = resume
     }
 }

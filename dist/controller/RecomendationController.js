@@ -27,7 +27,7 @@ class RecomendationController {
     }
     InsertRecomendation(req, res) {
         const repository = new RecomendationRepository_1.RecomendationRepository();
-        const recomendation = new Recomendation_1.Recomendation(req.body.id_disease, req.body.category, req.body.subcategory, req.body.sequence, req.body.title, req.body.value);
+        const recomendation = new Recomendation_1.Recomendation(req.body.id_disease, req.body.category, req.body.subcategory, req.body.sequence, req.body.title, req.body.value, req.body.user);
         try {
             repository.InsertRecomendation(recomendation).then((recomendations) => {
                 res.status(200).send(recomendations);
@@ -44,7 +44,7 @@ class RecomendationController {
             const recomendations = [];
             try {
                 yield data.forEach((recomendation) => {
-                    recomendations.push(new Recomendation_1.Recomendation(recomendation.id_disease, recomendation.category, recomendation.subcategory, recomendation.sequence, recomendation.title, recomendation.value));
+                    recomendations.push(new Recomendation_1.Recomendation(recomendation.id_disease, recomendation.category, recomendation.subcategory, recomendation.sequence, recomendation.title, recomendation.value, recomendation.user));
                 });
                 yield repository.InsertRecomendations(recomendations);
                 res.status(200).send();
@@ -56,7 +56,7 @@ class RecomendationController {
     }
     UpdateRecomendation(req, res) {
         const repository = new RecomendationRepository_1.RecomendationRepository();
-        const recomendation = new Recomendation_1.Recomendation(req.body.id_disease, req.body.category, req.body.subcategory, req.body.sequence, req.body.title, req.body.value);
+        const recomendation = new Recomendation_1.Recomendation(req.body.id_disease, req.body.category, req.body.subcategory, req.body.sequence, req.body.title, req.body.value, req.body.user);
         try {
             repository.UpdateRecomendation(req.body.id, recomendation).then((recomendations) => {
                 res.status(200).send(recomendations);

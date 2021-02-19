@@ -12,7 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Recomendation = void 0;
 const typeorm_1 = require("typeorm");
 let Recomendation = class Recomendation extends typeorm_1.BaseEntity {
-    constructor(id_disease, category, subcategory, sequence, title, value) {
+    constructor(id_disease, category, subcategory, sequence, title, value, user) {
         super();
         this.id_disease = id_disease;
         this.category = category;
@@ -20,7 +20,7 @@ let Recomendation = class Recomendation extends typeorm_1.BaseEntity {
         this.sequence = sequence;
         this.title = title;
         this.value = value;
-        this.user = 'LEVI';
+        this.user = user;
         this.last_updated = new Date(Date.now());
     }
 };
@@ -68,7 +68,7 @@ __decorate([
 ], Recomendation.prototype, "last_updated", void 0);
 Recomendation = __decorate([
     typeorm_1.Entity(),
-    __metadata("design:paramtypes", [Number, String, String, Number, String, String])
+    __metadata("design:paramtypes", [Number, String, String, Number, String, String, String])
 ], Recomendation);
 exports.Recomendation = Recomendation;
 //# sourceMappingURL=Recomendation.js.map

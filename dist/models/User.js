@@ -37,8 +37,6 @@ let User = class User {
         this.name = name;
         this.password = password;
         this.role = role;
-        this.createdAt = new Date(Date.now());
-        this.updatedAt = new Date(Date.now());
     }
     hashPassword() {
         this.password = bcrypt.hashSync(this.password, 8);
@@ -63,14 +61,6 @@ __decorate([
     typeorm_1.Column('text'),
     __metadata("design:type", String)
 ], User.prototype, "role", void 0);
-__decorate([
-    typeorm_1.Column('datetime'),
-    __metadata("design:type", Date)
-], User.prototype, "createdAt", void 0);
-__decorate([
-    typeorm_1.Column('datetime'),
-    __metadata("design:type", Date)
-], User.prototype, "updatedAt", void 0);
 User = __decorate([
     typeorm_1.Entity(),
     __metadata("design:paramtypes", [String, String, String, String])

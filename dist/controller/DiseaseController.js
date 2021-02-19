@@ -5,8 +5,8 @@ const Disease_1 = require("../models/Disease");
 const DiseaseRepository_1 = require("../repository/DiseaseRepository");
 class DiseaseController {
     GetAll(req, res) {
-        const repository = new DiseaseRepository_1.DiseaseRepository();
         try {
+            const repository = new DiseaseRepository_1.DiseaseRepository();
             repository.Find().then((diseases) => { res.status(200).send(diseases); });
         }
         catch (e) {
@@ -14,11 +14,10 @@ class DiseaseController {
         }
     }
     InsertDisease(req, res) {
-        const repository = new DiseaseRepository_1.DiseaseRepository();
-        const disease = new Disease_1.Disease();
-        disease.UpdateDisease(req.body);
         try {
-            repository.InsertDisease(disease).then((diseases) => {
+            const repository = new DiseaseRepository_1.DiseaseRepository();
+            const disease = new Disease_1.Disease(req.body.name, req.body.resume);
+            repository.Insert(disease).then((diseases) => {
                 res.status(200).send(diseases);
             });
         }
@@ -28,10 +27,11 @@ class DiseaseController {
     }
     UpdateDisease(req, res) {
         const repository = new DiseaseRepository_1.DiseaseRepository();
-        const disease = new Disease_1.Disease();
-        disease.UpdateDisease(req.body);
+        console.log(req.body.name + '-' + req.body.resume);
+        const disease = new Disease_1.Disease(req.body.name, req.body.resume);
+        disease.id = req.body.id;
         try {
-            repository.UpdateDisease(disease.id, disease).then((diseases) => {
+            repository.Update(disease).then((diseases) => {
                 res.status(200).send(diseases);
             });
         }
@@ -40,8 +40,8 @@ class DiseaseController {
         }
     }
     DeleteDisease(req, res) {
-        const repository = new DiseaseRepository_1.DiseaseRepository();
         try {
+            const repository = new DiseaseRepository_1.DiseaseRepository();
             repository.DeleteById(req.params.id).then((diseases) => {
                 res.status(200).send(diseases);
             });

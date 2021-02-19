@@ -9,7 +9,7 @@ import { validate } from "class-validator";
 export class AuthController {
   async Logout (req: Request, res: Response) {
     res.status(204).json({})
-  } 
+  }
   async Login (req: Request, res: Response) {
     let { email, password } = req.body;
     let user: User;
@@ -32,12 +32,10 @@ export class AuthController {
     }
 
     const token = jwt.sign(
-      { userId: user.email, username: user.name },
+      { email: user.email, name: user.name, role: user.role },
       config.jwtSecret,
       { expiresIn: "1h" }
     );
-
-    //Send the jwt in the response
     res.status(200).send({ token: token });
   }
 

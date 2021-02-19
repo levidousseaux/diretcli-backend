@@ -12,11 +12,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.Disease = void 0;
 const typeorm_1 = require("typeorm");
 let Disease = class Disease extends typeorm_1.BaseEntity {
-    UpdateDisease(disease) {
-        this.id = disease.id;
-        this.name = disease.name;
-        this.user = 'levi';
-        this.last_updated = new Date(Date.now());
+    constructor(name, resume) {
+        super();
+        this.name = name;
+        this.resume = resume;
     }
 };
 __decorate([
@@ -30,13 +29,10 @@ __decorate([
 __decorate([
     typeorm_1.Column('text'),
     __metadata("design:type", String)
-], Disease.prototype, "user", void 0);
-__decorate([
-    typeorm_1.Column('datetime'),
-    __metadata("design:type", Date)
-], Disease.prototype, "last_updated", void 0);
+], Disease.prototype, "resume", void 0);
 Disease = __decorate([
-    typeorm_1.Entity()
+    typeorm_1.Entity(),
+    __metadata("design:paramtypes", [String, String])
 ], Disease);
 exports.Disease = Disease;
 //# sourceMappingURL=Disease.js.map

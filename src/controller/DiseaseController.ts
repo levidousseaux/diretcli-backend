@@ -4,8 +4,8 @@ import { DiseaseRepository } from '../repository/DiseaseRepository';
 export class DiseaseController {
 
   GetAll(req: any, res: any) {
-    const repository: DiseaseRepository = new DiseaseRepository()
     try {
+      const repository: DiseaseRepository = new DiseaseRepository()
       repository.Find().then( (diseases) => { res.status(200).send(diseases) })
     }
     catch (e) {
@@ -13,12 +13,11 @@ export class DiseaseController {
     }
   }
 
-  InsertDisease(req: any, res: any) {
-    const repository: DiseaseRepository = new DiseaseRepository()
-    const disease: Disease = new Disease()
-    disease.UpdateDisease(req.body)
+  InsertDisease(req: any, res: any) {    
     try {
-      repository.InsertDisease(disease).then((diseases) => {
+      const repository: DiseaseRepository = new DiseaseRepository()
+      const disease: Disease = new Disease(req.body.name, req.body.resume)      
+      repository.Insert(disease).then((diseases) => {
         res.status(200).send(diseases)
       })
     }
@@ -29,11 +28,11 @@ export class DiseaseController {
 
   UpdateDisease(req: any, res: any) {
     const repository: DiseaseRepository = new DiseaseRepository()
-    const disease: Disease = new Disease()
-    disease.UpdateDisease(req.body)
+    const disease: Disease = new Disease(req.body.name, req.body.resume)        
+    disease.id = req.body.id
     try {
-      repository.UpdateDisease(disease.id, disease).then((diseases) => {
-        res.status(200).send(diseases)
+      repository.Update(disease).then(() => {
+        res.status(200).send()
       })
     }
     catch (e) {
@@ -42,8 +41,8 @@ export class DiseaseController {
   }
 
   DeleteDisease(req: any, res: any) {
-    const repository: DiseaseRepository = new DiseaseRepository()
     try {
+      const repository: DiseaseRepository = new DiseaseRepository()
       repository.DeleteById(req.params.id).then((diseases) => {
         res.status(200).send(diseases)
       })

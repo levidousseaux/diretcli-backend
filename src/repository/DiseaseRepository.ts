@@ -1,4 +1,4 @@
-import { getConnection, EntityManager } from "typeorm";
+import { getConnection, EntityManager, getRepository } from "typeorm";
 import { Disease } from "../models/Disease";
 
 export class DiseaseRepository {
@@ -25,16 +25,14 @@ export class DiseaseRepository {
         return rows
     }
 
-    async InsertDisease(disease: Disease): Promise<any> {
+    async Insert(disease: Disease): Promise<any> {
         let return_value;
         await this.manager.insert(Disease, disease).then( result => { return_value = result.raw })
         return return_value
     }
 
-    async UpdateDisease(id: number, disease: Disease): Promise<number> {
-        let rows = 0
-        await this.manager.update(Disease, id, disease).then( result => { rows = result.raw })
-        return rows
+    async Update(disease: Disease): Promise<void> {
+        await disease.save()
     }
 
 }

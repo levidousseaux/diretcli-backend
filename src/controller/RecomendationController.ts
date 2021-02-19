@@ -18,7 +18,7 @@ export class RecomendationController {
 
   InsertRecomendation(req: any, res: any) {
     const repository: RecomendationRepository = new RecomendationRepository()
-    const recomendation: Recomendation =  new Recomendation(req.body.id_disease, req.body.category, req.body.subcategory, req.body.sequence, req.body.title, req.body.value)
+    const recomendation: Recomendation =  new Recomendation(req.body.id_disease, req.body.category, req.body.subcategory, req.body.sequence, req.body.title, req.body.value, req.body.user)
     
     try {
       repository.InsertRecomendation(recomendation).then((recomendations) => {
@@ -35,8 +35,8 @@ export class RecomendationController {
     const data = req.body
     const recomendations: Recomendation[] = []
     try {
-      await data.forEach((recomendation: { id_disease: number; category: string; subcategory: string; sequence: number; title: string; value: string; }) => {
-        recomendations.push(new Recomendation(recomendation.id_disease, recomendation.category, recomendation.subcategory, recomendation.sequence, recomendation.title, recomendation.value))
+      await data.forEach((recomendation: { id_disease: number; category: string; subcategory: string; sequence: number; title: string; value: string; user: string }) => {
+        recomendations.push(new Recomendation(recomendation.id_disease, recomendation.category, recomendation.subcategory, recomendation.sequence, recomendation.title, recomendation.value, recomendation.user))
       });
       await repository.InsertRecomendations(recomendations)
       res.status(200).send()
@@ -48,7 +48,7 @@ export class RecomendationController {
 
   UpdateRecomendation(req: any, res: any) {
     const repository: RecomendationRepository = new RecomendationRepository()
-    const recomendation: Recomendation =  new Recomendation(req.body.id_disease, req.body.category, req.body.subcategory, req.body.sequence, req.body.title, req.body.value)
+    const recomendation: Recomendation =  new Recomendation(req.body.id_disease, req.body.category, req.body.subcategory, req.body.sequence, req.body.title, req.body.value, req.body.user)
 
     try {
       repository.UpdateRecomendation(req.body.id, recomendation).then((recomendations) => {

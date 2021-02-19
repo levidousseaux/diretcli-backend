@@ -35,7 +35,7 @@ export class Recomendation extends BaseEntity {
     @Column('datetime')
     last_updated: Date
 
-    constructor (id_disease: number, category: string, subcategory: string, sequence: number, title: string, value: string) {
+    constructor (id_disease: number, category: string, subcategory: string, sequence: number, title: string, value: string, user: string) {
         super();
         this.id_disease = id_disease        
         this.category = category
@@ -43,7 +43,7 @@ export class Recomendation extends BaseEntity {
         this.sequence = sequence
         this.title = title
         this.value = value
-        this.user = 'LEVI'
+        this.user = user
         this.last_updated = new Date(Date.now())
     }
 }

@@ -17,19 +17,11 @@ export class User {
     @Column('text')
     role: string;
 
-    @Column('datetime')
-    createdAt: Date;
-
-    @Column('datetime')
-    updatedAt: Date;
-
     constructor(email: string, name: string, password: string, role: string) {
         this.email = email
         this.name = name
         this.password = password
         this.role = role
-        this.createdAt = new Date(Date.now())
-        this.updatedAt = new Date(Date.now())
     }
 
     hashPassword() {
